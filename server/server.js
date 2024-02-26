@@ -5,8 +5,7 @@ const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const authRouter = require('./routes/authRouter');
-const notepadRouter = require('./routes/notepadRouter');
-const noteRouter = require('./routes/noteRouter');
+const gameRouter = require('./routes/gameRouter');
 
 require('dotenv').config();
 
@@ -40,7 +39,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(session(sessionConfig));
 
 app.use('/api/auth', authRouter);
-app.use('/api/notepads', notepadRouter);
-app.use('/api/notes', noteRouter);
+app.use('/api/game', gameRouter);
 
 app.listen(PORT, () => console.log(`Сервер запущен: http://localhost:${PORT}`));

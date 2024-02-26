@@ -15,4 +15,8 @@ export default class Actions {
     return { type: 'LOGOUT', payload }
   }
 
+  static getAllCards(payload: []) {
+    return { type: 'GET_ALL_CARDS', payload }
+  }
+
 }
