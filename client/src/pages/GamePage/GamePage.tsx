@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import styles from "./Game.module.css";
+import Modal from "../../components/Modal/Modal";
 
 export default function GamePage() {
   const themes = [
@@ -190,8 +191,13 @@ export default function GamePage() {
     console.log("Попали в кнопку");
   };
 
+  const [modalActive, setModalActive] = useState(false)
+
+  const [ card, setCard ] = useState(null)
+
   return (
     <>
+    <Modal active={modalActive} setActive={setModalActive} card={card} />
       <div className={styles.game}>
         <div className={styles.for_game}>
           {themes &&
@@ -199,14 +205,14 @@ export default function GamePage() {
               <div className={styles.row} key={theme.title}>
                 <h3 className={styles.question}>{theme.title}</h3>
                 <div className={styles.row}>
-                  {theme.cards.map((price) => (
-                    <button
-                      onClick={questionHandler}
+                  {theme.cards.map((price, index) => (
+                    <><button
+                      onClick={() => {setModalActive(true); setCard(price)}}
                       className={styles.price}
                       key={price.points}
                     >
                       {price.points}
-                    </button>
+                    </button></>
                   ))}
                 </div>
               </div>
