@@ -46,7 +46,7 @@ authRouter.post('/reg', async (req, res) => {
           console.log('session saved');
         });
         console.log(login, email, hash);
-        res.json({ success: { msg: 'Успешно!', userId: newUser.id, login: newUser.login } });
+        res.json({ userId: newUser.id, login: newUser.login });
       }
     } catch (error) {
       console.log(error);
@@ -73,7 +73,7 @@ authRouter.post('/log', async (req, res) => {
           req.session.save(() => {
             console.log('session saved');
           });
-          res.json({ success: { msg: 'Успешно!', userId: user.id, login: user.login } });
+          res.json({ userId: user.id, login: user.login });
         } else {
           res.json({ error: { password: 'Неверный пароль.' } });
         }

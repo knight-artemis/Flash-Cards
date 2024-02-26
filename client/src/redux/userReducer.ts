@@ -1,7 +1,7 @@
 import type { UserType } from "../types";
 
 const initialState: UserType = {
-  id: 0,
+  userId: 0,
   login: ''
 };
 
