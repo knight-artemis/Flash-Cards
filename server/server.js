@@ -35,3 +35,4 @@ app.use('/api/notepads', notepadRouter);
 app.use('/api/notes', noteRouter);
 
 app.listen(PORT, () => console.log(`Сервер запущен: http://localhost:${PORT}`));
+
