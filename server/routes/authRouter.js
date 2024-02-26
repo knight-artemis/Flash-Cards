@@ -15,7 +15,7 @@ authRouter.get('/logout', (req, res) => {
   });
 });
 
-authRouter.post('/register', async (req, res) => {
+authRouter.post('/reg', async (req, res) => {
   const { login, email, password } = req.body;
   const errors = {};
   if (!login) {
@@ -54,8 +54,8 @@ authRouter.post('/register', async (req, res) => {
     }
   }
 });
- 
-authRouter.post('/login', async (req, res) => {
+
+authRouter.post('/log', async (req, res) => {
   const { login, password } = req.body;
   const errors = {};
   if (!login) errors.login = 'Пожалуйста, введите логин.';

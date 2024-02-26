@@ -1,10 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import userReducer from './userReducer';
-import notepadReducer from './notepadReducer';
 
 const rootReducer = combineReducers({
   userReducer, 
-  notepadReducer,
 });
 
 const store = configureStore({
