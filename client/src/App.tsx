@@ -32,8 +32,8 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="log" element={<Auth />} />
           <Route path="/lk" element={<LkPage />}>
-            <Route path="myStat" element={<MyStatPage />} />
-            <Route path="globalStat" element={<GlobalStatPage />} />
+            <Route path="myStat" element={<h1>123</h1>} />
+            <Route path="globalStat" element={<h1>456</h1>} />
           </Route>
           {/* <Route path="/auth" element={<AuthPage />} /> */}
           <Route path="/game" element={<GamePage />} />
