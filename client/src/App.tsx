@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import { Route, Routes } from "react-router-dom";
 import LkPage from "./pages/LkPage/LkPage";
 import GamePage from "./pages/GamePage/GamePage";
+import EndGamePage from "./pages/EndGamePage/EndGamePage";
 
 function App() {
   return (
@@ -18,8 +19,7 @@ function App() {
           <Route path="/lk" element={<LkPage />} />
           {/* <Route path="/auth" element={<AuthPage />} /> */}
           <Route path="/game" element={<GamePage />} />
-          {/* <Route path="/lk" element={<LkPage />} /> */}
-          {/* <Route path="/endgame" element={<EndPage />} /> */}
+          <Route path="/endgame" element={<EndGamePage />} />
         </Routes>
       </div>
     </div>
