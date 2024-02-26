@@ -1,9 +1,11 @@
-import Header from "./components/Header/Header"
-import Auth from "./components/Auth/Auth"
+import Header from "./components/Header/Header";
+import Auth from "./components/Auth/Auth";
 
-import './App.css';
-import HomePage from './pages/HomePage/HomePage';
+import "./App.css";
+import HomePage from "./pages/HomePage/HomePage";
 import { Route, Routes } from "react-router-dom";
+import LkPage from "./pages/LkPage/LkPage";
+import GamePage from "./pages/GamePage/GamePage";
 
 function App() {
   return (
@@ -13,10 +15,10 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="log" element={<Auth />} />
+          <Route path="/lk" element={<LkPage />} />
           {/* <Route path="/auth" element={<AuthPage />} /> */}
-          {/* <Route path="/game" element={<GamePage />} /> */}
+          <Route path="/game" element={<GamePage />} />
           {/* <Route path="/lk" element={<LkPage />} /> */}
-          {/* <Route path="/game" element={<GamePage />} /> */}
           {/* <Route path="/endgame" element={<EndPage />} /> */}
         </Routes>
       </div>
