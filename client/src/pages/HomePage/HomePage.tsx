@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   return (
@@ -7,7 +8,7 @@ export default function HomePage() {
       <h2>Перед началом зарегистрируйтесь или войдите!</h2>
       <h2>ПРАВИЛА ИГРЫ ОПИСАТЬ ТУТ</h2>
       <p>
-        Если зарегистрирован: <button>Начать игру</button>
+        Если зарегистрирован: <Link to='/game'><button>Начать игру</button></Link>
       </p>
     </div>
   );
