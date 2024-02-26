@@ -13,7 +13,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const CLIENT_PORT = process.env.CLIENT_PORT
+const { CLIENT_PORT } = process.env;
 
 const corsOptions = {
   origin: [`http://localhost:${CLIENT_PORT}`],

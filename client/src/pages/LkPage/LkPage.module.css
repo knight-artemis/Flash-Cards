@@ -1,0 +1,26 @@
+.page {
+    display: flex;
+    height: 100%;
+    gap: 20px;
+}
+
+.sideBlock, .mainBlock {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.sideBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+.sideBlock :last-child {
+    margin-top: auto;
+}
+
+.mainBlock {
+    width: 100%
+}
