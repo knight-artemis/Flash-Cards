@@ -5,7 +5,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Theme extends Model {
     static associate(models) {
-      this.hasMany(models.Theme, { foreignKey: 'themeId' });
+      this.hasMany(models.Card, { foreignKey: "themeId" });
     }
   }
   Theme.init(
