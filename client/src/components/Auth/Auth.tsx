@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import Actions from '../../redux/actions';
 import styles from './Auth.module.css';
+import Switch from '../Switch/Switch';
 
 export default function Auth(): JSX.Element {
   const navigate = useNavigate();
@@ -72,6 +73,11 @@ export default function Auth(): JSX.Element {
     }
   };
 
+  useEffect(() => {
+    console.log(LogOrReg);
+    
+  }, [LogOrReg])
+
   return (
     <div className={styles.authPageWrapper}>
       <h1>{LogOrReg ? 'Войти' : 'Регистрация'}</h1>
@@ -107,9 +113,10 @@ export default function Auth(): JSX.Element {
           <button onClick={() => void authUser()} type="button">
             {LogOrReg ? 'Войти' : 'Регистрация'}
           </button>
-          <div className="check-div">
-            <span>Хочу зарегистрироваться</span>
-            <input id="check" name="check" type="checkbox" checked={!LogOrReg} onChange={() => setLogOrReg((prev) => !prev)} />
+          <div className={`${styles.check_div}`}>
+            <>Зарегестрироваться</>
+            <Switch isOn={LogOrReg} handleToggle={() => setLogOrReg((prev) => !prev)}/>
+            <>Залогиниться</>
           </div>
         </form>
       </div>

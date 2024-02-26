@@ -6,9 +6,9 @@
   gap: 20px;
 }
 
-.authPageWrapper * {
-  /* border: 1px solid red; */
-}
+/* .authPageWrapper * {
+  border: 1px solid red;
+} */
 
 form {
     display: flex;
@@ -20,4 +20,10 @@ form {
 form div {
     display: flex;
     flex-direction: column;
+}
+
+.check_div {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between
 }
