@@ -1,2 +1,6 @@
-PORT=3000
-DATABASE=postgres://dbuser:password@localhost:5432/dbname
+DB_USER=admin
+DB_PASSWORD=123
+DB_NAME=yourgame
+PORT=3111
+CLIENT_PORT=5174
+SESSION_SECRET_KEY=SayFriendAndEnter

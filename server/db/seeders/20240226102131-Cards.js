@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("Cards", [
+  async up(queryInterface) {
+    await queryInterface.bulkInsert('Cards', [
       {
         themeId: 1,
         answer: 'жеребец',
@@ -207,7 +207,7 @@ module.exports = {
     ]);
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("Cards", null, {});
+  async down(queryInterface) {
+    await queryInterface.bulkDelete('Cards', null, {});
   },
 };
