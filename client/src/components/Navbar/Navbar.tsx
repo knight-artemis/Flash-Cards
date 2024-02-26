@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import type { UserType } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Actions from '../../redux/actions';
-import styles from './Navbar.module.css'
+import styles from './Navbar.module.css';
 
 export default function NavBar(): JSX.Element {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function NavBar(): JSX.Element {
       })
       .catch((err) => console.log('ERROROROROORR >> > < > <> >< ', err));
   };
- 
+
   return (
     <div className={styles.navbar}>
       <Link to="/">На главную</Link>
@@ -34,6 +34,9 @@ export default function NavBar(): JSX.Element {
           <button type="button">Войти</button>
         </Link>
       )}
+      <Link to="/lk">
+        <button type="button">ВРЕМЯНКА LK</button>
+      </Link>
     </div>
   );
 }
