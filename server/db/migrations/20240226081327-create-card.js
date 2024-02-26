@@ -1,28 +1,29 @@
-'use strict';
-
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Notes', {
+    await queryInterface.createTable("Cards", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      note_title: {
-        type: Sequelize.STRING,
-      },
-      note_text: {
-        type: Sequelize.TEXT,
-      },
-      notepad_id: {
+      themeId: {
         type: Sequelize.INTEGER,
         references: {
-          model: 'Notepads',
-          key: 'id',
+          model: "Themes",
+          key: "id",
         },
-        onDelete: 'CASCADE',
+      },
+      answer: {
+        type: Sequelize.STRING,
+      },
+      question: {
+        type: Sequelize.STRING,
+      },
+      points: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
@@ -34,7 +35,7 @@ module.exports = {
       },
     });
   },
-  async down(queryInterface) {
-    await queryInterface.dropTable('Notes');
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable("Cards");
   },
 };
