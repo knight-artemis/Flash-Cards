@@ -1,224 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Game.module.css";
 import Modal from "../../components/Modal/Modal";
+import axios from "axios";
 
 export default function GamePage() {
-  const themes = [
-    {
-      title: "Животные",
-      cards: [
-        {
-          themeId: 1,
-          answer: "жеребец",
-          question:
-            "Какое животное является символом долголетия в китайской культуре?",
-          points: 200,
-        },
-        {
-          themeId: 1,
-          answer: "гепард",
-          question: "Как называется самое быстрое сухопутное животное?",
-          points: 400,
-        },
-        {
-          themeId: 1,
-          answer: "лев",
-          question: "Какой вид крупных кошачьих обычно охотится на слонов?",
-          points: 600,
-        },
-        {
-          themeId: 1,
-          answer: "медведь",
-          question: "Какое животное является национальным символом России??",
-          points: 800,
-        },
-        {
-          themeId: 1,
-          answer: "песец",
-          question: "Как называется наименьшая из кошачьих диких кошек?",
-          points: 1000,
-        },
-      ],
-    },
-    {
-      title: "Эльбрус",
-      cards: [
-        {
-          themeId: 2,
-          answer: "5642",
-          question: "Какая высота Эльбруса, самой высокой горы в России?",
-          points: 200,
-        },
-        {
-          themeId: 2,
-          answer: "кавказский хребет",
-          question: "Какой хребет Кавказских гор проходит через Эльбрус?",
-          points: 400,
-        },
-        {
-          themeId: 2,
-          answer: "восточный и западный",
-          question: "Как называется северный и южный пик Эльбруса?",
-          points: 600,
-        },
-        {
-          themeId: 2,
-          answer: "кабардино-балкария",
-          question: "В каком регионе находится гора Эльбрус?",
-          points: 800,
-        },
-        {
-          themeId: 2,
-          answer: "спящий вулкан",
-          question:
-            "Какой тип вулканического комплекса представляет собой Эльбрус?",
-          points: 1000,
-        },
-      ],
-    },
-    {
-      title: "История Руси",
-      cards: [
-        {
-          themeId: 2,
-          answer: "5642",
-          question: "Какая высота Эльбруса, самой высокой горы в России?",
-          points: 200,
-        },
-        {
-          themeId: 2,
-          answer: "кавказский хребет",
-          question: "Какой хребет Кавказских гор проходит через Эльбрус?",
-          points: 400,
-        },
-        {
-          themeId: 2,
-          answer: "восточный и западный",
-          question: "Как называется северный и южный пик Эльбруса?",
-          points: 600,
-        },
-        {
-          themeId: 2,
-          answer: "кабардино-балкария",
-          question: "В каком регионе находится гора Эльбрус?",
-          points: 800,
-        },
-        {
-          themeId: 2,
-          answer: "спящий вулкан",
-          question:
-            "Какой тип вулканического комплекса представляет собой Эльбрус?",
-          points: 1000,
-        },
-      ],
-    },
-    {
-      title: "Олег",
-      cards: [
-        {
-          themeId: 2,
-          answer: "5642",
-          question: "Какая высота Эльбруса, самой высокой горы в России?",
-          points: 200,
-        },
-        {
-          themeId: 2,
-          answer: "кавказский хребет",
-          question: "Какой хребет Кавказских гор проходит через Эльбрус?",
-          points: 400,
-        },
-        {
-          themeId: 2,
-          answer: "восточный и западный",
-          question: "Как называется северный и южный пик Эльбруса?",
-          points: 600,
-        },
-        {
-          themeId: 2,
-          answer: "кабардино-балкария",
-          question: "В каком регионе находится гора Эльбрус?",
-          points: 800,
-        },
-        {
-          themeId: 2,
-          answer: "спящий вулкан",
-          question:
-            "Какой тип вулканического комплекса представляет собой Эльбрус?",
-          points: 1000,
-        },
-      ],
-    },
-    {
-      title: "Буйволы",
-      cards: [
-        {
-          themeId: 2,
-          answer: "5642",
-          question: "Какая высота Эльбруса, самой высокой горы в России?",
-          points: 200,
-        },
-        {
-          themeId: 2,
-          answer: "кавказский хребет",
-          question: "Какой хребет Кавказских гор проходит через Эльбрус?",
-          points: 400,
-        },
-        {
-          themeId: 2,
-          answer: "восточный и западный",
-          question: "Как называется северный и южный пик Эльбруса?",
-          points: 600,
-        },
-        {
-          themeId: 2,
-          answer: "кабардино-балкария",
-          question: "В каком регионе находится гора Эльбрус?",
-          points: 800,
-        },
-        {
-          themeId: 2,
-          answer: "спящий вулкан",
-          question:
-            "Какой тип вулканического комплекса представляет собой Эльбрус?",
-          points: 1000,
-        },
-      ],
-    },
-  ];
+  const [themes, setThemes] = useState();
 
-  const questionHandler = () => {
-    console.log("Попали в кнопку");
-  };
+  useEffect(() => {
+    axios
+      .get(`${import.meta.env.VITE_URL}/game`)
+      .then((res) => setThemes(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
-  const [modalActive, setModalActive] = useState(false)
+  console.log(themes);
 
-  const [ card, setCard ] = useState(null)
+  const [modalActive, setModalActive] = useState(false);
+
+  const [card, setCard] = useState(null);
 
   return (
     <>
-    <Modal active={modalActive} setActive={setModalActive} card={card} />
+      <Modal active={modalActive} setActive={setModalActive} card={card} />
       <div className={styles.game}>
         <div className={styles.for_game}>
-          {themes &&
-            themes.map((theme) => (
-              <div className={styles.row} key={theme.title}>
-                <h3 className={styles.question}>{theme.title}</h3>
-                <div className={styles.row}>
-                  {theme.cards.map((price, index) => (
-                    <><button
-                      onClick={() => {setModalActive(true); setCard(price)}}
-                      className={styles.price}
-                      key={price.points}
-                    >
-                      {price.points}
-                    </button></>
-                  ))}
-                </div>
+          {themes?.map((el) => (
+            <div className={styles.row} key={el.id}>
+              <h3 className={styles.question}>{el.title}</h3>
+              <div className={styles.row}>
+                {el.Cards.toReversed().map((card) => (
+                  <button
+                    onClick={() => {
+                      setModalActive(true);
+                      setCard(card);
+                    }}
+                    className={styles.price}
+                    key={card.points}
+                  >
+                    {card.points}
+                  </button>
+                ))}
               </div>
-            ))}
+            </div>
+          ))}
         </div>
-
         <div className={styles.state}>
           <h3>статистика игры : 2000 </h3>
         </div>
