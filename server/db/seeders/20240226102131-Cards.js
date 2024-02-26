@@ -15,7 +15,7 @@ module.exports = {
       {
         themeId: 1,
         answer: 'гепард',
-        question: 'ак называется самое быстрое сухопутное животное?',
+        question: 'Как называется самое быстрое сухопутное животное?',
         points: 400,
         createdAt: new Date(),
         updatedAt: new Date(),
