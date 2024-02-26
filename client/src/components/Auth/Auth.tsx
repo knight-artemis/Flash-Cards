@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import type { AxiosResponse } from 'axios';
 import type { ChangeEvent } from 'react';
@@ -27,7 +27,7 @@ export default function Auth(): JSX.Element {
   const authUser = async (): Promise<void> => {
     axios
       .post<InputType, AxiosResponse<UserType>>(
-        `${import.meta.env.VITE_URL}/user/${LogOrReg ? 'log' : 'reg'}`,
+        `${import.meta.env.VITE_URL}/auth/${LogOrReg ? 'log' : 'reg'}`,
         inputs,
         { withCredentials: true },
       )
@@ -48,7 +48,7 @@ export default function Auth(): JSX.Element {
       ) : (
         <>
         <input placeholder='Логин' onChange={changeHandler} type="text" name="login" value={inputs.login} />
-        <input placeholder='Почта' onChange={changeHandler} type="email" name="login" value={inputs.email} />
+        <input placeholder='Почта' onChange={changeHandler} type="email" name="email" value={inputs.email} />
         <input placeholder='Пароль' onChange={changeHandler} type="password" name="password" value={inputs.password} />
         </>
       )}
