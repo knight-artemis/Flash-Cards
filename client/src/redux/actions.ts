@@ -11,6 +11,10 @@ export default class Actions {
     return { type: 'REG_LOG', payload }
   }
 
+  static checkAuth(payload: UserType): UserActionType {
+    return { type: 'CHECK_AUTH', payload }
+  }
+
   static logout(payload: UserType): UserActionType {
     return { type: 'LOGOUT', payload }
   }
