@@ -1,39 +1,25 @@
-import type { AnyAction } from "@reduxjs/toolkit";
-import type { TasksType } from "../types";
+import type { UserType } from "../types";
 
- export type User = {
-    userId: number,
-    login:string
-}
-
- export type UserState = {
- user: User
-}
-
-
-const initialState: UserState = {
-  user: {
-    userId: 0,
-    login: ''
-  },
+const initialState: UserType = {
+  id: 0,
+  login: ''
 };
 
-type UserActionType = {
-  type: string;
-  payload: User;
+export type UserActionType = {
+  type: string,
+  payload: UserType
 }
 
-//! {type: "ADD_ALL_TASKS", payload: [{}, {}, {}]} - action
-
-const userReducer = ( state: UserState = initialState, action: UserActionType): UserState => {
+// eslint-disable-next-line @typescript-eslint/default-param-last
+const userReducer = (state = initialState, action: UserActionType): UserType => {
   const { type, payload } = action;
 
   switch (type) {
-    case 'USER_SIGN_IN':
-      return { ...state, user: payload };
+    case 'REG_LOG': 
+      return payload
 
-    case 'USER_SIGN_OUT': 
-      return { ...state, user: { userId: 0,login: ''}}
+    case 'LOGOUT':
+      return initialState
 
     default:
       return state;

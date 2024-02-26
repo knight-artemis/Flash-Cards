@@ -12,6 +12,15 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+const CLIENT_PORT = process.env.CLIENT_PORT
+
+const corsOptions = {
+  origin: [`http://localhost:${CLIENT_PORT}`],
+  optionsSuccesStatus: 200,
+  credentials: true,
+};
+
 const sessionConfig = {
   name: 'note',
   store: new FileStore(),
@@ -24,7 +33,7 @@ const sessionConfig = {
   },
 };
 
-app.use(cors({ credentials: true, origin: true }));
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

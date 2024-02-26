@@ -1,0 +1,11 @@
+.header {
+    width: 100dvw;
+    background-color: #9d18b2;
+    display: flex;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    justify-content: end;
+}
