@@ -2,31 +2,33 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import Actions from "../../redux/actions";
 
 export default function EditProfile() {
   const user = useAppSelector((store) => store.userReducer);
   const [login, setLogin] = useState<LoginType>({ login: user.login });
   const dispatch = useDispatch();
-  const [passwords, setPasswords] = useState<PasswordType>({
-    oldPassword: "",
-    newPassword: "",
-  });
+
+  // const [passwords, setPasswords] = useState<PasswordType>({
+  //   oldPassword: "",
+  //   newPassword: "",
+  // });
 
   console.log(user.login);
   type LoginType = {
     login?: string;
   };
 
-  type PasswordType = {
-    oldPassword?: string;
-    newPassword?: string;
-  };
+  // type PasswordType = {
+  //   oldPassword?: string;
+  //   newPassword?: string;
+  // };
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setLogin((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    setPasswords((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
+    // setPasswords((prev) => ({
+    //   ...prev,
+    //   [event.target.name]: event.target.value,
+    // }));
   };
 
   const editLoginHandler = async () => {
@@ -40,6 +42,10 @@ export default function EditProfile() {
       console.log("user", user);
 
       if (response.status === 200) {
+        const updatedUser = { ...user, login: response.data.login };
+        dispatch(Actions.updateLog(response.data.login));
+        dispatch(Actions.checkAuth(updatedUser));
+        localStorage.setItem("user", JSON.stringify(updatedUser));
         setLogin(response.data.login);
       }
     } catch (error) {
@@ -47,10 +53,15 @@ export default function EditProfile() {
     }
   };
   useEffect(() => {
-    console.log("ygouuoylgu");
-    //    setLogin((prev) => { user.login })
-    // editLoginHandler();
-  }, [dispatch]);
+    const storedUser = localStorage.getItem("user");
+    console.log("storedUser", storedUser);
+
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      console.log("parsedUser", parsedUser);
+      dispatch(Actions.checkAuth(parsedUser));
+    }
+  }, [user.login]);
 
   return (
     <form>
@@ -60,7 +71,6 @@ export default function EditProfile() {
         name="login"
         placeholder="Введите имя"
         defaultValue={login.login}
-        // value={login.login}
       />
       <button onClick={editLoginHandler} type="button">
         Изменить
