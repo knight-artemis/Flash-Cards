@@ -15,14 +15,14 @@
     width: 500px;
   }
   
-  .endButton {
+  /* .endButton {
     width: 100px;
     height: 50px;
     border: 2px solid black;
     border-radius: 8px;
     background-color:#6164ff;
     color: black;
-  }
+  } */
 
   .windowContainer {
     width: 100%;
