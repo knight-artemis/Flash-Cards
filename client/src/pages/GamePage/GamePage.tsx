@@ -5,7 +5,7 @@ import Modal from '../../components/Modal/Modal';
 import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import Actions from '../../redux/actions';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function GamePage() {
   const [themes, setThemes] = useState();
@@ -16,13 +16,27 @@ export default function GamePage() {
   const [answerMessage, setAnswerMessage] = useState('');
   const game = useAppSelector((store) => store.gameReducer);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  console.log(themes);
+  // console.log(themes);
+
+  const gamePatchHandler = (score) => {
+    axios
+      .patch(`${import.meta.env.VITE_URL}/game/${game.game.id}`, { score }, { withCredentials: true })
+      .then((res) => {
+        dispatch(Actions.setGame(res.data));
+        console.log(res.data)
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     axios
       .post(`${import.meta.env.VITE_URL}/game`, {}, { withCredentials: true })
-      .then((res) => console.log(res))
+      .then((res) => {
+        dispatch(Actions.setGame(res.data));
+        console.log(game);
+      })
       .catch((err) => console.log(err));
   }, []);
 
@@ -33,15 +47,16 @@ export default function GamePage() {
       .catch((err) => console.log(err));
   }, []);
 
-  const answerHandler = (cardPoints, cardAnswer) => {
+  const answerHandler = async (cardPoints, cardAnswer) => {
     if (userAnswerInput.userAnswer && cardAnswer.toLowerCase().includes(userAnswerInput.userAnswer.toLowerCase())) {
       setScore((prev) => prev + cardPoints);
+      gamePatchHandler(score + cardPoints)
       setAnswerMessage('Верно!');
     } else {
       setScore((prev) => prev - cardPoints / 2);
+      gamePatchHandler(score - cardPoints / 2)
       setAnswerMessage('Не верно!');
     }
-
     setTimeout(() => {
       setModalActive(false);
       setAnswerMessage('');
@@ -53,12 +68,12 @@ export default function GamePage() {
   };
 
   const gameEndHandler = async () => {
-    console.log(game, '<<<<< THIS IS GAME');
+    console.log(game?.game, '<<<<< THIS IS GAME');
     await axios
-      .patch(`${import.meta.env.VITE_URL}/game/${game.game.id}`, {}, { withCredentials: true })
+      .put(`${import.meta.env.VITE_URL}/game/${game.game.id}`, {}, { withCredentials: true })
       .then((res) => {
         dispatch(Actions.endGame(res.data));
-        redirect('/endgame');
+        navigate(`/endgame/${game?.game?.id}`);
       })
       .catch((err) => console.log(err));
   };
@@ -93,7 +108,7 @@ export default function GamePage() {
           </div>
         </>
       )}
-
+      <h4>GameId: {game?.game?.id}</h4>
       <div className={styles.game}>
         <div className={styles.for_game}>
           {themes?.map((el) => (

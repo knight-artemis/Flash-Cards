@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./EndGamePage.module.css";
 
 export default function EndGamePage() {
   const [points, setPoints] = useState(0);
+  const { gameId } = useParams()
 
   useEffect(() => {
     const res = axios
-      .get("http://localhost:3000/api/endGame")
-      .then((result) => setPoints(result.data.points))
+      .get(`${import.meta.env.VITE_URL}/endGame/${gameId}`, { withCredentials: true })
+      .then((result) => {
+        setPoints(result.data.game.score)
+        console.log(result.data)
+      })
       .catch((err) => console.log(err));
   }, []);
 
