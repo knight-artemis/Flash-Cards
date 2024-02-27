@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import style from "./HomePage.module.css";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function HomePage() {
+  const user = useAppSelector((store) => store.userReducer);
+  console.log(user);
   return (
     <div className="home-page">
       <h2>ДОБРО ПОЖАЛОВАТЬ НА НАШ САЙТ</h2>
@@ -29,12 +32,21 @@ export default function HomePage() {
           <h4>6. Удачной игры!</h4>
         </div>
       </div>
-      <p>
-        Если зарегистрирован:{" "}
+      {user && user.userId > 0 ? (
         <Link to="/game">
-          <button className={style.gameButton}><b>Начать игру</b></button>
+          <button className={style.gameButton}>
+            <b>Начать игру</b>
+          </button>
         </Link>
-      </p>
+      ) : (
+        <>
+            <Link to="/log">
+              <button className={style.gameButton}>
+                <b>Регистрация/Вход</b>
+              </button>
+            </Link>
+        </>
+      )}
     </div>
   );
 }
