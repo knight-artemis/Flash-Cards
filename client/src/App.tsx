@@ -1,20 +1,21 @@
-import Header from "./components/Header/Header";
-import Auth from "./components/Auth/Auth";
+import Header from './components/Header/Header';
+import Auth from './components/Auth/Auth';
 
-import "./App.css";
-import HomePage from "./pages/HomePage/HomePage";
-import { Route, Routes } from "react-router-dom";
-import LkPage from "./pages/LkPage/LkPage";
-import GamePage from "./pages/GamePage/GamePage";
-import EndGamePage from "./pages/EndGamePage/EndGamePage";
-import GlobalStatPage from "./pages/GlobalStatPage/GlobalStatPage";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { useEffect } from "react";
-import axios from "axios";
-import Actions from "./redux/actions";
-import EditProfile from "./pages/EditProfile/EditProfile";
-import MyStatPage from "./pages/MyStatPage/MyStatPage";
+import './App.css';
+import HomePage from './pages/HomePage/HomePage';
+import { Route, Routes } from 'react-router-dom';
+import LkPage from './pages/LkPage/LkPage';
+import GamePage from './pages/GamePage/GamePage';
+import EndGamePage from './pages/EndGamePage/EndGamePage';
+import GlobalStatPage from './pages/GlobalStatPage/GlobalStatPage';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { useEffect } from 'react';
+import axios from 'axios';
+import Actions from './redux/actions';
+import EditProfile from './pages/EditProfile/EditProfile';
+import MyStatPage from './pages/MyStatPage/MyStatPage';
 
+console.log(MyStatPage);
 function App() {
   const dispatch = useAppDispatch();
   const game = useAppSelector((store) => store.gameReducer);
@@ -28,12 +29,12 @@ function App() {
     axios
       .get(`${import.meta.env.VITE_URL}/game/check`, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.game)
-        dispatch(Actions.setGame(res.data))
+        console.log(res.data.game);
+        dispatch(Actions.setGame(res.data));
       })
       .catch((err) => console.log(err));
 
-    console.log(game)
+    console.log(game);
   }, [dispatch]);
 
   return (
