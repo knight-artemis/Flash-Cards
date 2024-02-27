@@ -1,35 +1,30 @@
-const statRouter = require("express").Router();
-const { Game } = require("../db/models");
+const statRouter = require('express').Router();
+const { Game, User } = require('../db/models');
 
-statRouter.get("/personalStat", async (req, res) => {
-  console.log("мама я в рулончике");
+statRouter.get('/personalStat', async (req, res) => {
   const { userId } = req.session;
-  console.log("🚀 ~ statRouter.get ~ userId:", userId);
-
   try {
     const myGamesRaw = await Game.findAll({
       where: { userId },
-      attributes: ["id", "score", "isEnded"],
+      attributes: ['id', 'score', 'isEnded'],
     });
-    console.log("🚀 ~ statRouter.get ~ myGamesRaw:", myGamesRaw);
     const myGames = myGamesRaw.map((el) => el.get({ plain: true }));
-    console.log("🚀 ~ statRouter.get ~ myGames:", myGames);
-
     res.send(myGames);
   } catch (error) {
-    console.log(error, "ошибка в ручке personalStat");
+    console.log(error, 'ошибка в ручке personalStat');
   }
 });
 
-statRouter.get("/globalStat", async (req, res) => {
+statRouter.get('/globalStat', async (req, res) => {
   try {
-    const myGamesRaw = Game.findAll({
-      attributes: ["id", "userId", "score", "isEnded"],
+    const myGamesRaw = await Game.findAll({
+      attributes: ['id', 'userId', 'score', 'isEnded'], include: { model: User, attributes: ['login'] }
     });
     const myGames = myGamesRaw.map((el) => el.get({ plain: true }));
+    console.log('🚀 ~ statRouter.get ~ myGames:', myGames)
     res.send(myGames);
   } catch (error) {
-    console.log(error, "ошибка в ручке personalStat");
+    console.log(error, 'ошибка в ручке personalStat');
   }
 });
 

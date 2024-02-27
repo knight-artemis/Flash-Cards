@@ -22,8 +22,6 @@ export default class Actions {
     return { type: 'UPDATE_LOGIN', payload }
   }
 
-
-
   static getAllCards(payload: []) {
     return { type: 'GET_ALL_CARDS', payload }
   }
@@ -39,4 +37,9 @@ export default class Actions {
   static getMyStat(payload: []) {
     return { type: 'GET_MY_STAT', payload }
   }
+
+  static getAllStat(payload: []) {
+    return { type: 'GET_ALL_STAT', payload }
+  }
+
 }
