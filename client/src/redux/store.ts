@@ -3,12 +3,14 @@ import userReducer from './userReducer';
 import cardReducer from './cardReducer';
 import gameReducer from './gameReducer';
 import statReducer from './statReducer';
+import globalStatReducer from './globalStatReducer';
 
 const rootReducer = combineReducers({
   userReducer,
   cardReducer,
   gameReducer,
-  statReducer
+  statReducer,
+  globalStatReducer
 });
 
 const store = configureStore({
