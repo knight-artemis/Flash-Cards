@@ -1,19 +1,19 @@
-import Header from './components/Header/Header';
-import Auth from './components/Auth/Auth';
+import Header from "./components/Header/Header";
+import Auth from "./components/Auth/Auth";
 
-import './App.css';
-import HomePage from './pages/HomePage/HomePage';
-import { Route, Routes } from 'react-router-dom';
-import LkPage from './pages/LkPage/LkPage';
-import GamePage from './pages/GamePage/GamePage';
-import EndGamePage from './pages/EndGamePage/EndGamePage';
-// import MyStatPage from './pages/MyStatPage/MyStatPage';
-import GlobalStatPage from './pages/GlobalStatPage/GlobalStatPage';
-import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { useEffect } from 'react';
-import axios from 'axios';
-import Actions from './redux/actions';
-import EditProfile from './pages/EditProfile/EditProfile';
+import "./App.css";
+import HomePage from "./pages/HomePage/HomePage";
+import { Route, Routes } from "react-router-dom";
+import LkPage from "./pages/LkPage/LkPage";
+import GamePage from "./pages/GamePage/GamePage";
+import EndGamePage from "./pages/EndGamePage/EndGamePage";
+import GlobalStatPage from "./pages/GlobalStatPage/GlobalStatPage";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { useEffect } from "react";
+import axios from "axios";
+import Actions from "./redux/actions";
+import EditProfile from "./pages/EditProfile/EditProfile";
+import MyStatPage from "./pages/MyStatPage/MyStatPage";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -27,10 +27,13 @@ function App() {
 
     axios
       .get(`${import.meta.env.VITE_URL}/game/check`, { withCredentials: true })
-      .then((res) => dispatch(Actions.setGame(res.data)))
-      // .then((res) => console.log(res.data.game))
+      .then((res) => {
+        console.log(res.data.game)
+        dispatch(Actions.setGame(res.data))
+      })
       .catch((err) => console.log(err));
-    // console.log(game)
+
+    console.log(game)
   }, [dispatch]);
 
   return (
@@ -41,13 +44,13 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="log" element={<Auth />} />
           <Route path="/lk" element={<LkPage />}>
-            {/* <Route path="myStat" element={<MyStatPage />} /> */}
+            <Route path="myStat" element={<MyStatPage />} />
             <Route path="globalStat" element={<GlobalStatPage />} />
             <Route path="editProfile" element={<EditProfile />} />
           </Route>
           {/* <Route path="/auth" element={<AuthPage />} /> */}
           <Route path="/game" element={<GamePage />} />
-          <Route path="/endgame" element={<EndGamePage />} />
+          <Route path="/endgame/:gameId" element={<EndGamePage />} />
         </Routes>
       </div>
     </div>

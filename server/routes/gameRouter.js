@@ -13,10 +13,11 @@ gameRouter.get('/', async (req, res) => {
 
 gameRouter.get('/check', async (req, res) => {
   const { userId, login } = req.session;
-  console.log(userId);
   try {
     if (userId) {
+      console.log(userId);
       const games = await Game.findAll({ where: { userId } });
+      //   console.log(games.map((el) => el.get({ plain: true })));
       res.json({ game: games.filter((el) => el.isEnded === false).at(-1) });
     } else {
       res.json({ game: undefined });
@@ -29,11 +30,12 @@ gameRouter.get('/check', async (req, res) => {
 gameRouter.post('/', async (req, res) => {
   const { userId, login } = req.session;
   try {
-    let game = await Game.findOne({ where: { userId } });
-    if (game) {
+    let game = await Game.findOne({ where: { userId }, order: [['id', 'DESC']] });
+    console.log(game.get({ plain: true }));
+    if (game.isEnded) {
+      game = await Game.create({ userId });
       res.json({ game });
     } else {
-      game = await Game.create({ userId });
       res.json({ game });
     }
   } catch (error) {
@@ -42,6 +44,21 @@ gameRouter.post('/', async (req, res) => {
 });
 
 gameRouter.patch('/:id', async (req, res) => {
+  const { userId, login } = req.session;
+  const { id } = req.params;
+  const { score } = req.body;
+  console.log(score);
+  try {
+    const game = await Game.findByPk(id);
+    game.score = score;
+    await game.save();
+    res.json({ game });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+gameRouter.put('/:id', async (req, res) => {
   const { userId, login } = req.session;
   const { id } = req.params;
   try {
