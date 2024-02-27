@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       userId: DataTypes.INTEGER,
       score: DataTypes.INTEGER,
+      isEnded: DataTypes.BOOLEAN,
     },
     {
       sequelize,
