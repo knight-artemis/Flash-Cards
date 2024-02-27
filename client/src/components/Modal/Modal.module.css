@@ -1,33 +1,84 @@
-.modal {
-    height: 100vh;
-    width: 100vw;
-    background-color: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    pointer-events: none;
-    transition: 0.5s;
+/* .modal {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.5s;
 }
 
 .modal.active {
   opacity: 1;
-  /* pointer-events: all; */
+  pointer-events: all;
 }
 
 .modalContent {
-    padding: 20px;
-    border-radius: 12px;
-    background-color: rgb(214, 16, 16);
-    height: 400px;
-    width: 400px;
-    /* transform: scale(0.5);
-    transition: 0.4s all; */
-}
+  padding: 20px;
+  border-radius: 12px;
+  background-color: rgb(214, 16, 16);
+  height: 400px;
+  width: 400px;
+  transform: scale(0.5);
+    transition: 0.4s all; 
+} */
 
 /* .modalContent.active {
     trans
 } */
+
+.background,
+.backgroundBlur {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.background {
+  background: black;
+  opacity: 0;
+  transition: 1s ease-in-out;
+  z-index: -2;
+}
+
+.backgroundBlur {
+  backdrop-filter: blur(3px);
+  opacity: 0;
+  transition: 1s ease-in-out;
+  z-index: -1;
+}
+
+.window {
+  width: 300px;
+  background: white;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+  opacity: 0;
+  transition: 0.5s ease-in-out;
+  z-index: 3;
+}
+
+.backgroundActive {
+  opacity: 0.8;
+  z-index: 2;
+}
+
+.backgroundBlurActive,
+.windowActive {
+  opacity: 1;
+  z-index: 3;
+}
+
+.headerWrapper {
+    padding: 10px;
+}
