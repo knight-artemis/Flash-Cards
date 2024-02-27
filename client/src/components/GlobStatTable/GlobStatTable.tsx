@@ -19,6 +19,7 @@ export default function GlobStatTable() {
   }, [dispatch]);
 
   const allGames = useAppSelector((store) => store.globalStatReducer);
+  console.log("🚀 ~ GlobStatTable ~ allGames:", allGames);
 
   return (
     <table className="table">
@@ -29,7 +30,7 @@ export default function GlobStatTable() {
           </th>
           <th className="th" scope="col">
             Игрок
-        </th>
+          </th>
           <th className="th" scope="col">
             Количество очков
           </th>
