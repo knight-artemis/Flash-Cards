@@ -3,6 +3,7 @@ import { useAppSelector } from "../../redux/hooks";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import Actions from "../../redux/actions";
+import styles from './EditProfile.module.css'
 
 export default function EditProfile() {
   const user = useAppSelector((store) => store.userReducer);
@@ -77,34 +78,38 @@ export default function EditProfile() {
   };
 
   return (
-    <form>
-      <input
-        onChange={changeHandler}
-        type="text"
-        name="login"
-        placeholder="Введите имя"
-        defaultValue={user.login}
-      />
-      <button onClick={editLoginHandler} type="button">
-        Изменить
-      </button>
-      <input
-        onChange={changeHandler}
-        type="password"
-        name="oldPassword"
-        placeholder="Введите старый пароль"
-        defaultValue={passwords.oldPassword}
-      />
-      <input
-        onChange={changeHandler}
-        type="password"
-        name="newPassword"
-        placeholder="Введите новый пароль"
-        defaultValue={passwords.newPassword}
-      />
-      <button onClick={editPasswordHandler} type="button">
-        Изменить пароль
-      </button>
-    </form>
+    <div className={styles.formWrapper}>
+      <h1>Редактизация</h1>
+      <br />
+      <div className={styles.form}>
+        <input
+          onChange={changeHandler}
+          type="text"
+          name="login"
+          placeholder="Введите имя"
+          defaultValue={user.login}
+        />
+        <button onClick={editLoginHandler} type="button">
+          Изменить логин
+        </button>
+        <input
+          onChange={changeHandler}
+          type="password"
+          name="oldPassword"
+          placeholder="Введите старый пароль"
+          defaultValue={passwords.oldPassword}
+        />
+        <input
+          onChange={changeHandler}
+          type="password"
+          name="newPassword"
+          placeholder="Введите новый пароль"
+          defaultValue={passwords.newPassword}
+        />
+        <button onClick={editPasswordHandler} type="button">
+          Изменить пароль
+        </button>
+      </div>
+    </div>
   );
 }

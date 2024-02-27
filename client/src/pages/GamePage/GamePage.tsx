@@ -20,7 +20,7 @@ export default function GamePage() {
 
   const gamePatchHandler = (score) => {
     axios
-      .patch(`${import.meta.env.VITE_URL}/game/${game.game.id}`, { score }, { withCredentials: true })
+      .patch(`${import.meta.env.VITE_URL}/game/${game.game.id}`, { score, themes }, { withCredentials: true })
       .then((res) => {
         dispatch(Actions.setGame(res.data));
         console.log(res.data);
@@ -29,10 +29,20 @@ export default function GamePage() {
   };
 
   useEffect(() => {
+    console.log('SNAPSHOT >>>>>>>', game?.game?.snapshot);
+    axios.patch(`${import.meta.env.VITE_URL}/game/${game?.game?.id}`, { score, themes }, { withCredentials: true });
+  }, [score]);
+
+  useEffect(() => {
     axios
       .post(`${import.meta.env.VITE_URL}/game`, {}, { withCredentials: true })
       .then((res) => {
+        console.log(res.data, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         dispatch(Actions.setGame(res.data));
+        const snap = res.data.game.snapshot
+        if (snap) {
+          setThemes(res.data.game.snapshot);
+        }
         console.log(game);
       })
       .catch((err) => console.log(err));
@@ -42,23 +52,27 @@ export default function GamePage() {
     axios
       .get(`${import.meta.env.VITE_URL}/game`)
       .then((res) => {
-        setThemes(res.data.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => ({ ...card, isAnswered: false })) })));
+        setThemes(res.data); //.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => ({ ...card, isAnswered: false })) }))
       })
       .catch((err) => console.log(err));
   }, []);
 
   const answerHandler = async (cardId, cardPoints, cardAnswer) => {
+    let newScore = 0;
     if (userAnswerInput.userAnswer && cardAnswer.toLowerCase().includes(userAnswerInput.userAnswer.toLowerCase())) {
       setScore((prev) => prev + cardPoints);
-      gamePatchHandler(score + cardPoints);
+      newScore = score + cardPoints;
       setAnswerMessage('Верно!');
     } else {
       setScore((prev) => prev - cardPoints / 2);
-      gamePatchHandler(score - cardPoints / 2);
+      newScore = score - cardPoints / 2;
       setAnswerMessage('Не верно!');
     }
+
+    setThemes(themes.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => (card.id === cardId ? { ...card, isAnswered: true } : card)) })));
+    gamePatchHandler(newScore);
+
     setTimeout(() => {
-      setThemes(themes.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => card.id === cardId ? { ...card, isAnswered: true } : card) })));
       setModalActive(false);
       setAnswerMessage('');
     }, 600);
@@ -69,7 +83,7 @@ export default function GamePage() {
   };
 
   const gameEndHandler = async () => {
-    console.log(game?.game, '<<<<< THIS IS GAME');
+    // console.log(game?.game, '<<<<< THIS IS GAME');
     await axios
       .put(`${import.meta.env.VITE_URL}/game/${game.game.id}`, {}, { withCredentials: true })
       .then((res) => {
@@ -110,37 +124,39 @@ export default function GamePage() {
         </>
       )}
       <h4>GameId: {game?.game?.id}</h4>
-      <div className={styles.game}>
-        <div className={styles.for_game}>
-          {themes?.map((el) => (
-            <div className={styles.row} key={el.id}>
-              <h3 className={styles.question}>{el.title}</h3>
-              <div className={styles.row}>
-                {el.Cards.toReversed().map((card) => (
-                  <button
-                    onClick={() => {
-                      setModalActive(true);
-                      setCard(card);
-                    }}
-                    className={styles.price}
-                    key={card.id}
-                    disabled={card.isAnswered}
-                  >
-                    {card.points}
-                  </button>
-                ))}
+      <div className={styles.gameWrapper}>
+        <div className={styles.game}>
+          <div className={styles.for_game}>
+            {themes?.map((el) => (
+              <div className={styles.row} key={el.id}>
+                <h3 className={styles.question}>{el.title}</h3>
+                <div className={styles.row}>
+                  {el.Cards.toReversed().map((card) => (
+                    <button
+                      onClick={() => {
+                        setModalActive(true);
+                        setCard(card);
+                      }}
+                      className={styles.price}
+                      key={card.id}
+                      disabled={card.isAnswered}
+                    >
+                      {card.points}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className={styles.state}>
+            <h3>Cтатистика игры : {score} </h3>
+          </div>
         </div>
-        <div className={styles.state}>
-          <h3>статистика игры : {score} </h3>
+        <div className={styles.endGameButtonWrapper}>
+          <button className={styles.button} type="button" onClick={() => gameEndHandler()}>
+            Завершить игру
+          </button>
         </div>
-      </div>
-      <div className={styles.endGameButtonWrapper}>
-        <button className={styles.button} type="button" onClick={() => gameEndHandler()}>
-          Завершить игру
-        </button>
       </div>
     </>
   );
