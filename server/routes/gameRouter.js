@@ -46,11 +46,12 @@ gameRouter.post('/', async (req, res) => {
 gameRouter.patch('/:id', async (req, res) => {
   const { userId, login } = req.session;
   const { id } = req.params;
-  const { score } = req.body;
-  console.log(score);
+  const { score, themes } = req.body;
+  console.log(themes);
   try {
     const game = await Game.findByPk(id);
     game.score = score;
+    game.snapshot = themes;
     await game.save();
     res.json({ game });
   } catch (error) {

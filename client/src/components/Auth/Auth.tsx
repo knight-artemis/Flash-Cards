@@ -80,7 +80,8 @@ export default function Auth(): JSX.Element {
 
   return (
     <div className={styles.authPageWrapper}>
-      {/* <h1>{LogOrReg ? 'Войти' : 'Регистрация'}</h1> */}
+      <h1>{LogOrReg ? 'Логинизация' : 'Регистрация'}</h1>
+      <br />
       <div>
         <form>
           {LogOrReg ? (
