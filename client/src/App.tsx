@@ -27,10 +27,13 @@ function App() {
 
     axios
       .get(`${import.meta.env.VITE_URL}/game/check`, { withCredentials: true })
-      .then((res) => dispatch(Actions.setGame(res.data)))
-      // .then((res) => console.log(res.data.game))
+      .then((res) => {
+        console.log(res.data.game)
+        dispatch(Actions.setGame(res.data))
+      })
       .catch((err) => console.log(err));
-    // console.log(game)
+
+    console.log(game)
   }, [dispatch]);
 
   return (
@@ -47,7 +50,7 @@ function App() {
           </Route>
           {/* <Route path="/auth" element={<AuthPage />} /> */}
           <Route path="/game" element={<GamePage />} />
-          <Route path="/endgame" element={<EndGamePage />} />
+          <Route path="/endgame/:gameId" element={<EndGamePage />} />
         </Routes>
       </div>
     </div>
