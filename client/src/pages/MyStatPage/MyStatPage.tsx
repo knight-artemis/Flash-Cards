@@ -2,7 +2,7 @@ import React from "react";
 import { useAppSelector } from "../../redux/hooks";
 import PersStatTable from "../../components/PersStatTable/PersStatTable";
 
-export default function MyStatPage(): JSX.Element {
+function MyStatPage(): JSX.Element {
   const user = useAppSelector((store) => store.userReducer);
   return (
     <div>
@@ -11,3 +11,5 @@ export default function MyStatPage(): JSX.Element {
     </div>
   );
 }
+
+export default MyStatPage;
