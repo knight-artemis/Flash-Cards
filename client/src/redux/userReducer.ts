@@ -24,7 +24,8 @@ const userReducer = (state = initialState, action: UserActionType): UserType => 
     case 'LOGOUT':
       return initialState;
 
-  
+      case 'UPDATE_LOGIN':
+        return  { ...state, login: payload.login }
 
     default:
       return state;

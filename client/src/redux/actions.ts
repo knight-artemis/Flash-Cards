@@ -18,6 +18,9 @@ export default class Actions {
   static logout(payload: UserType): UserActionType {
     return { type: 'LOGOUT', payload }
   }
+  static updateLog(payload: UserType): UserActionType {
+    return { type: 'UPDATE_LOGIN', payload }
+  }
 
 
 
