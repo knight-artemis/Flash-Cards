@@ -5,7 +5,7 @@ export default function PersStatLine({ game, index, key }): JSX.Element {
     <tr id={game.id} key={key} className="tableLine">
       <td>{index}</td>
       <td>{game.score}</td>
-      <td>{game.isEnded}</td>
+      <td>{game.isEnded ? "Завершена" : "Не завершена"}</td>
     </tr>
   );
 }
