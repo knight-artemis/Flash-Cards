@@ -28,12 +28,12 @@ function App() {
     axios
       .get(`${import.meta.env.VITE_URL}/game/check`, { withCredentials: true })
       .then((res) => {
-        console.log(res.data.game)
-        dispatch(Actions.setGame(res.data))
+        console.log(res.data.game);
+        dispatch(Actions.setGame(res.data));
       })
       .catch((err) => console.log(err));
 
-    console.log(game)
+    console.log(game);
   }, [dispatch]);
 
   return (

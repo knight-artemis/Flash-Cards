@@ -9,26 +9,25 @@ export default function EditProfile() {
   const [login, setLogin] = useState<LoginType>({ login: user.login });
   const dispatch = useDispatch();
 
-  // const [passwords, setPasswords] = useState<PasswordType>({
-  //   oldPassword: "",
-  //   newPassword: "",
-  // });
+  const [passwords, setPasswords] = useState<PasswordType>({
+    oldPassword: "",
+    newPassword: "",
+  });
 
-  console.log(user.login);
   type LoginType = {
     login?: string;
   };
 
-  // type PasswordType = {
-  //   oldPassword?: string;
-  //   newPassword?: string;
-  // };
+  type PasswordType = {
+    oldPassword?: string;
+    newPassword?: string;
+  };
   const changeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
     setLogin((prev) => ({ ...prev, [event.target.name]: event.target.value }));
-    // setPasswords((prev) => ({
-    //   ...prev,
-    //   [event.target.name]: event.target.value,
-    // }));
+    setPasswords((prev) => ({
+      ...prev,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const editLoginHandler = async () => {
@@ -38,9 +37,6 @@ export default function EditProfile() {
         { login },
         { withCredentials: true }
       );
-
-      console.log("user", user);
-
       if (response.status === 200) {
         const updatedUser = { ...user, login: response.data.login };
         dispatch(Actions.updateLog(response.data.login));
@@ -54,14 +50,30 @@ export default function EditProfile() {
   };
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    console.log("storedUser", storedUser);
-
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
-      console.log("parsedUser", parsedUser);
       dispatch(Actions.checkAuth(parsedUser));
     }
   }, [user.login]);
+
+  const editPasswordHandler = async (e) => {
+    console.log("e.target", e.target);
+
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_URL}/auth/editPassword`,
+        passwords,
+        { withCredentials: true }
+      );
+      console.log("response", response);
+
+      if (response.status === 200) {
+        setPasswords(response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form>
@@ -70,22 +82,28 @@ export default function EditProfile() {
         type="text"
         name="login"
         placeholder="Введите имя"
-        defaultValue={login.login}
+        defaultValue={user.login}
       />
       <button onClick={editLoginHandler} type="button">
         Изменить
       </button>
       <input
-        type="text"
+        onChange={changeHandler}
+        type="password"
         name="oldPassword"
         placeholder="Введите старый пароль"
+        defaultValue={passwords.oldPassword}
       />
       <input
-        type="text"
+        onChange={changeHandler}
+        type="password"
         name="newPassword"
         placeholder="Введите новый пароль"
+        defaultValue={passwords.newPassword}
       />
-      <button type="submit">Изменить пароль</button>
+      <button onClick={editPasswordHandler} type="button">
+        Изменить пароль
+      </button>
     </form>
   );
 }
