@@ -1,12 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 
 export default function EditProfile() {
   const user = useAppSelector((store) => store.userReducer);
   const [login, setLogin] = useState<LoginType>({ login: user.login });
-  const dispatch = useDispatch();
+
   const [passwords, setPasswords] = useState<PasswordType>({
     oldPassword: "",
     newPassword: "",
@@ -46,11 +45,11 @@ export default function EditProfile() {
       console.log(error);
     }
   };
-  useEffect(() => {
-    console.log("ygouuoylgu");
-    //    setLogin((prev) => { user.login })
-    // editLoginHandler();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   console.log("ygouuoylgu");
+  //   //    setLogin((prev) => { user.login })
+  //   // editLoginHandler();
+  // }, [dispatch]);
 
   return (
     <form>
