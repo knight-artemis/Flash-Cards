@@ -6,6 +6,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const authRouter = require('./routes/authRouter');
 const gameRouter = require('./routes/gameRouter');
+const statRouter = require('./routes/statRouter');
 const gameEndRouter = require('./routes/gameEndRouter');
 
 require('dotenv').config();
@@ -38,6 +39,7 @@ app.use(session(sessionConfig));
 
 app.use('/api/auth', authRouter);
 app.use('/api/game', gameRouter);
+app.use('/api/stat', statRouter);
 app.use('/api/endGame', gameEndRouter);
 
 app.listen(PORT, () => console.log(`Сервер запущен: http://localhost:${PORT}`));

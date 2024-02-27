@@ -35,4 +35,8 @@ export default class Actions {
   static endGame(payload: []) {
     return { type: 'END_GAME', payload }
   }
+
+  static getMyStat(payload: []) {
+    return { type: 'GET_MY_STAT', payload }
+  }
 }
