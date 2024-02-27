@@ -8,6 +8,7 @@ export default function EditProfile() {
   const user = useAppSelector((store) => store.userReducer);
   const [login, setLogin] = useState<LoginType>({ login: user.login });
   const dispatch = useDispatch();
+  console.log(user.login);
 
   const [passwords, setPasswords] = useState<PasswordType>({
     oldPassword: "",
