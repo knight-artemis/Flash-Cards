@@ -29,10 +29,20 @@ export default function GamePage() {
   };
 
   useEffect(() => {
+    console.log('SNAPSHOT >>>>>>>', game?.game?.snapshot);
+    axios.patch(`${import.meta.env.VITE_URL}/game/${game?.game?.id}`, { score, themes }, { withCredentials: true });
+  }, [score]);
+
+  useEffect(() => {
     axios
       .post(`${import.meta.env.VITE_URL}/game`, {}, { withCredentials: true })
       .then((res) => {
+        console.log(res.data, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         dispatch(Actions.setGame(res.data));
+        const snap = res.data.game.snapshot
+        if (snap) {
+          setThemes(res.data.game.snapshot);
+        }
         console.log(game);
       })
       .catch((err) => console.log(err));
@@ -42,23 +52,27 @@ export default function GamePage() {
     axios
       .get(`${import.meta.env.VITE_URL}/game`)
       .then((res) => {
-        setThemes(res.data.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => ({ ...card, isAnswered: false })) })));
+        setThemes(res.data); //.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => ({ ...card, isAnswered: false })) }))
       })
       .catch((err) => console.log(err));
   }, []);
 
   const answerHandler = async (cardId, cardPoints, cardAnswer) => {
+    let newScore = 0;
     if (userAnswerInput.userAnswer && cardAnswer.toLowerCase().includes(userAnswerInput.userAnswer.toLowerCase())) {
       setScore((prev) => prev + cardPoints);
-      gamePatchHandler(score + cardPoints);
+      newScore = score + cardPoints;
       setAnswerMessage('Верно!');
     } else {
       setScore((prev) => prev - cardPoints / 2);
-      gamePatchHandler(score - cardPoints / 2);
+      newScore = score - cardPoints / 2;
       setAnswerMessage('Не верно!');
     }
+
+    setThemes(themes.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => (card.id === cardId ? { ...card, isAnswered: true } : card)) })));
+    gamePatchHandler(newScore);
+
     setTimeout(() => {
-      setThemes(themes.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => (card.id === cardId ? { ...card, isAnswered: true } : card)) })));
       setModalActive(false);
       setAnswerMessage('');
     }, 600);
