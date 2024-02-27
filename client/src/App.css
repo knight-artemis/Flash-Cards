@@ -1,7 +1,15 @@
+@font-face {
+  font-family: 'Virgil';
+  src: url('Virgil.woff2');
+  font-display: swap;
+}
+
 * {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  font-family: Virgil;
+  font-size: 23px;
   /* border: 1px solid red; */
 }
 
