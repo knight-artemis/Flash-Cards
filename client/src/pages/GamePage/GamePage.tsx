@@ -18,14 +18,12 @@ export default function GamePage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  // console.log(themes);
-
   const gamePatchHandler = (score) => {
     axios
       .patch(`${import.meta.env.VITE_URL}/game/${game.game.id}`, { score }, { withCredentials: true })
       .then((res) => {
         dispatch(Actions.setGame(res.data));
-        console.log(res.data)
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
   };
@@ -43,21 +41,24 @@ export default function GamePage() {
   useEffect(() => {
     axios
       .get(`${import.meta.env.VITE_URL}/game`)
-      .then((res) => setThemes(res.data))
+      .then((res) => {
+        setThemes(res.data.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => ({ ...card, isAnswered: false })) })));
+      })
       .catch((err) => console.log(err));
   }, []);
 
-  const answerHandler = async (cardPoints, cardAnswer) => {
+  const answerHandler = async (cardId, cardPoints, cardAnswer) => {
     if (userAnswerInput.userAnswer && cardAnswer.toLowerCase().includes(userAnswerInput.userAnswer.toLowerCase())) {
       setScore((prev) => prev + cardPoints);
-      gamePatchHandler(score + cardPoints)
+      gamePatchHandler(score + cardPoints);
       setAnswerMessage('Верно!');
     } else {
       setScore((prev) => prev - cardPoints / 2);
-      gamePatchHandler(score - cardPoints / 2)
+      gamePatchHandler(score - cardPoints / 2);
       setAnswerMessage('Не верно!');
     }
     setTimeout(() => {
+      setThemes(themes.map((theme) => ({ ...theme, Cards: theme.Cards.map((card) => card.id === cardId ? { ...card, isAnswered: true } : card) })));
       setModalActive(false);
       setAnswerMessage('');
     }, 600);
@@ -98,7 +99,7 @@ export default function GamePage() {
                   <p>{card.question}</p>
                   <div>
                     <input type="text" name="userAnswer" onChange={userAnswerInputChangeHandler} />
-                    <button className={modalStyles.answerButton} type="button" onClick={() => answerHandler(card.points, card.answer)}>
+                    <button className={modalStyles.answerButton} type="button" onClick={() => answerHandler(card.id, card.points, card.answer)}>
                       Ответить
                     </button>
                   </div>
@@ -122,7 +123,8 @@ export default function GamePage() {
                       setCard(card);
                     }}
                     className={styles.price}
-                    key={card.points}
+                    key={card.id}
+                    disabled={card.isAnswered}
                   >
                     {card.points}
                   </button>

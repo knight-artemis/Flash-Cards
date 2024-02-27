@@ -15,7 +15,6 @@ gameRouter.get('/check', async (req, res) => {
   const { userId, login } = req.session;
   try {
     if (userId) {
-      console.log(userId);
       const games = await Game.findAll({ where: { userId } });
       //   console.log(games.map((el) => el.get({ plain: true })));
       res.json({ game: games.filter((el) => el.isEnded === false).at(-1) });
@@ -30,12 +29,13 @@ gameRouter.get('/check', async (req, res) => {
 gameRouter.post('/', async (req, res) => {
   const { userId, login } = req.session;
   try {
+    console.log('>>>>>>>>>>>', userId);
     let game = await Game.findOne({ where: { userId }, order: [['id', 'DESC']] });
-    console.log(game.get({ plain: true }));
-    if (game.isEnded) {
-      game = await Game.create({ userId });
+    console.log(game);
+    if (game && !game.isEnded) {
       res.json({ game });
     } else {
+      game = await Game.create({ userId });
       res.json({ game });
     }
   } catch (error) {

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-export default function PersStatLine(game, index) {
+export default function PersStatLine({ game, index, key }): JSX.Element {
   return (
-    <tr id={game.id} className="tableLine">
-    <td>{index}</td>
-    <td>{game.score}</td>
-    <td>{game.isEnded}</td>
-  </tr>
-  )
+    <tr id={game.id} key={key} className="tableLine">
+      <td>{index}</td>
+      <td>{game.score}</td>
+      <td>{game.isEnded ? "Завершена" : "Не завершена"}</td>
+    </tr>
+  );
 }
