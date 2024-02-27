@@ -97,7 +97,7 @@ export default function GamePage() {
                 </div>
                 <div className={modalStyles.contentWrapper}>
                   <p>{card.question}</p>
-                  <div>
+                  <div className={modalStyles.form}>
                     <input type="text" name="userAnswer" onChange={userAnswerInputChangeHandler} />
                     <button className={modalStyles.answerButton} type="button" onClick={() => answerHandler(card.id, card.points, card.answer)}>
                       Ответить
@@ -137,9 +137,11 @@ export default function GamePage() {
           <h3>статистика игры : {score} </h3>
         </div>
       </div>
-      <button className={styles.button} type="button" onClick={() => gameEndHandler()}>
-        Завершить игру
-      </button>
+      <div className={styles.endGameButtonWrapper}>
+        <button className={styles.button} type="button" onClick={() => gameEndHandler()}>
+          Завершить игру
+        </button>
+      </div>
     </>
   );
 }

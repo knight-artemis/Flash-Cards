@@ -80,7 +80,7 @@ export default function Auth(): JSX.Element {
 
   return (
     <div className={styles.authPageWrapper}>
-      <h1>{LogOrReg ? 'Войти' : 'Регистрация'}</h1>
+      {/* <h1>{LogOrReg ? 'Войти' : 'Регистрация'}</h1> */}
       <div>
         <form>
           {LogOrReg ? (
@@ -114,9 +114,9 @@ export default function Auth(): JSX.Element {
             {LogOrReg ? 'Войти' : 'Регистрация'}
           </button>
           <div className={`${styles.check_div}`}>
-            <>Зарегестрироваться</>
+            <>Зарегаться</>
             <Switch isOn={LogOrReg} handleToggle={() => setLogOrReg((prev) => !prev)}/>
-            <>Залогиниться</>
+            <>Залогаться</>
           </div>
         </form>
       </div>
