@@ -1,39 +1,38 @@
 .question {
-    border: 2px solid black;
-    border-radius: 10px;
-    width: 150px;
-    height: 50px;
-    margin: 10px;
-    padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  width: 400px;
+  height: 50px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .for_game {
-    border: 2px solid black;
-    border-radius: 20px;
-    padding: 10px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 .price {
-    border: 2px solid black;
-    border-radius: 10px;
-    height: 50px;
-    margin: 10px;
-    padding: 10px;
-
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 50px;
+  margin: 10px;
+  padding: 10px;
 }
 
 .row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .game {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
 }
 
 /* .button {
@@ -44,17 +43,11 @@
     border-radius: 5px;
 } */
 
-
 .state {
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
 }
-
-
-
-
-
 
 .background,
 .backgroundBlur {

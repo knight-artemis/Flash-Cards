@@ -5,22 +5,22 @@ module.exports = {
   async up(queryInterface) {
     await queryInterface.bulkInsert('Themes', [
       {
-        title: 'Животные',
+        title: 'Цитаты Джейсона Стетхема',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: 'Эльбрус',
+        title: 'Цитаты из фильмов',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: 'Буйволы',
+        title: 'Эльбруйволы',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        title: 'React',
+        title: 'React SSR',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
