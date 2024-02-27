@@ -5,7 +5,7 @@ export default function GlobalStatPage(): JSX.Element {
   return (
     <div>
       <h3>Статистика всех игроков</h3>
-      <GlobStatTable/>
+      <GlobStatTable />
     </div>
   );
 }
