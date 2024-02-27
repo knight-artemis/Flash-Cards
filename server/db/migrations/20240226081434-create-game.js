@@ -19,6 +19,11 @@ module.exports = {
       },
       score: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      isEnded: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

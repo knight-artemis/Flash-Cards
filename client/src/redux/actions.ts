@@ -23,4 +23,11 @@ export default class Actions {
     return { type: 'GET_ALL_CARDS', payload }
   }
 
+  static setGame(payload: []) {
+    return { type: 'SET_GAME', payload }
+  }
+
+  static endGame(payload: []) {
+    return { type: 'END_GAME', payload }
+  }
 }
